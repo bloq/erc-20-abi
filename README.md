@@ -18,7 +18,7 @@ const abi = require('erc-20-abi')
 
 const token = new web3.eth.Contract(abi, address)
 
-token.methods.symbol.call().then(console.log) // prints the token's symbol
+token.methods.symbol().call().then(console.log) // prints the token's symbol
 ```
 
 ## License
