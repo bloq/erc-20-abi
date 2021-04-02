@@ -1,0 +1,28 @@
+{
+  "name": "web3-simpler-contract",
+  "version": "1.0.0",
+  "description": "Wrapper on top of Web3 contract to simplify the usage",
+  "keywords": [
+    "contract",
+    "simple",
+    "web3"
+  ],
+  "homepage": "https://github.com/bloq/erc-20-monorepo#readme",
+  "bugs": {
+    "url": "https://github.com/bloq/erc-20-monorepo/issues"
+  },
+  "license": "MIT",
+  "author": "Gabriel Montes <gabriel@bloq.com>",
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "repository": "bloq/erc-20-monorepo",
+  "scripts": {
+    "coverage": "nyc npm test",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "debug": "^4.3.1"
+  }
+}
