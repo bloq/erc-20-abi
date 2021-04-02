@@ -1,0 +1,33 @@
+{
+  "name": "erc-20-abi",
+  "version": "1.0.0",
+  "description": "ERC-20 token ABI",
+  "keywords": [
+    "abi",
+    "contract",
+    "erc-20",
+    "erc",
+    "erc20",
+    "eth",
+    "ethereum",
+    "json",
+    "standard",
+    "token",
+    "web3"
+  ],
+  "homepage": "https://github.com/bloq/erc-20-monorepo#readme",
+  "bugs": {
+    "url": "https://github.com/bloq/erc-20-monorepo/issues"
+  },
+  "license": "MIT",
+  "author": "Gabriel Montes <gabriel@bloq.com>",
+  "files": [
+    "src/abi.json"
+  ],
+  "main": "src/abi.json",
+  "repository": "bloq/erc-20-monorepo",
+  "scripts": {
+    "lint": "jsonlint src/abi.json -cisq",
+    "prepublishOnly": "tag-matches"
+  }
+}
