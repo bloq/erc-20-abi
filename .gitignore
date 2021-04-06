@@ -2,3 +2,4 @@
 .eslintcache
 .nyc_output
 node_modules
+packages/*/out

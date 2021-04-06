@@ -19,6 +19,7 @@
     "dependency-check": "^4.1.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-jsdoc": "^32.3.0",
     "husky": "^4.3.8",
     "jsonlint": "^1.6.3",
     "lerna": "^4.0.0",
@@ -38,7 +39,11 @@
     },
     "extends": [
       "eslint:recommended",
+      "plugin:jsdoc/recommended",
       "prettier"
+    ],
+    "ignorePatterns": [
+      "packages/*/out"
     ],
     "overrides": [
       {
@@ -50,15 +55,24 @@
         }
       }
     ],
+    "plugins": [
+      "jsdoc"
+    ],
     "rules": {
+      "jsdoc/require-property-description": "off",
       "no-shadow": "warn",
       "no-use-before-define": "error"
+    },
+    "settings": {
+      "jsdoc": {
+        "mode": "typescript"
+      }
     }
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lerna:run lint && lint-staged",
-      "pre-push": "npm run lerna:run test && npm run lerna:run deps:check"
+      "pre-push": "npm run lerna:run deps:check && npm run lerna:run test"
     }
   },
   "lint-staged": {

@@ -1,0 +1,20 @@
+diff --git a/node_modules/jsdoc/cli.js b/node_modules/jsdoc/cli.js
+index b1de34d..f584e14 100644
+--- a/node_modules/jsdoc/cli.js
++++ b/node_modules/jsdoc/cli.js
+@@ -95,7 +95,14 @@ module.exports = (() => {
+                     config = fs.readFileSync(confPath, 'utf8');
+                     break;
+             }
+-            env.conf = new Config(config).get();
++
++            const conf = new Config(config).get();
++
++            const packageJsonPath = path.join(process.cwd(),'package.json');
++            const packageConf = require(packageJsonPath).jsdoc || {};
++    
++            env.conf = _.defaults(conf, packageConf);
++            env.conf.plugins = _.union(conf.plugins, packageConf.plugins)
+         }
+         catch (e) {
+             cli.exit(1, `Cannot parse the config file ${confPath}: ${e}\n${FATAL_ERROR_MESSAGE}`);
