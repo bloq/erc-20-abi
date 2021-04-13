@@ -1,0 +1,33 @@
+{
+  "name": "erc-20-token-list",
+  "version": "1.0.0",
+  "description": "Simple utility package to search for ERC-20 token data",
+  "keywords": [
+    "erc-20",
+    "list",
+    "token"
+  ],
+  "homepage": "https://github.com/bloq/erc-20-monorepo#readme",
+  "bugs": {
+    "url": "https://github.com/bloq/erc-20-monorepo/issues"
+  },
+  "license": "MIT",
+  "author": "Gabriel Montes <gabriel@bloq.com>",
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "repository": "bloq/erc-20-monorepo",
+  "scripts": {
+    "coverage": "nyc npm test",
+    "deps:check": "dependency-check --no-dev .",
+    "doc": "jsdoc2md ${npm_package_main} > API.md",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@uniswap/default-token-list": "^2.0.0"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^7.0.1"
+  }
+}
