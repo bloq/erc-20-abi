@@ -21,13 +21,9 @@
   "scripts": {
     "coverage": "nyc npm test",
     "deps:check": "dependency-check --no-dev .",
-    "doc": "jsdoc2md ${npm_package_main} > API.md",
     "test": "mocha"
   },
   "dependencies": {
     "@uniswap/default-token-list": "^2.0.0"
-  },
-  "devDependencies": {
-    "jsdoc-to-markdown": "^7.0.1"
   }
 }

@@ -16,7 +16,8 @@ npm install erc-20-token-list
 ```js
 const tokenList = require('erc-20-token-list')
 
-console.log(tokenList.addressOf('WETH')) // prints `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
+console.log(tokenList.addressOf('WETH'))
+// prints `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
 
 const vspToken = {
   address: '0x1b40183EFB4Dd766f11bDa7A7c3AD8982e998421',
@@ -25,12 +26,44 @@ const vspToken = {
   chainId: 1
 }
 tokenList.registerTokens([vspToken])
-console.log(tokenList.addressOf('VSP')) // prints the VSP token address
+console.log(tokenList.addressOf('VSP'))
+// prints the VSP token address
 ```
 
 ## API
 
-See the [API documentation](API.md).
+### registerTokens(tokens)
+
+The module by default loads the Uniswap's token list but more tokens can be added.
+This function registers more tokens to the list of known tokens.
+
+#### Arguments
+
+- `tokens` (`Array`): Is a list of new tokens to register.
+
+The tokens are `object`s that contain at least the following properties:
+
+- `name` (`string`): The display name of the token.
+- `address` (`string`): The address of the contract in the specified chain.
+- `symbol` (`string`): The symbol of the token.
+- `decimals` (`number`): The number of decimal the token uses.
+- `chainId` (`number`): The ID of the chain where the contract exists.
+
+### addressOf(symbol, chainId?)
+
+Returns the address of a token given its symbol.
+
+The token will be searched in the list of known tokens.
+If no exact match is found, a case-insensitive lookup is executed.
+
+#### Arguments
+
+- `symbol` (`string`): The symbol of the token.
+- `chainId` (`numnber`): The chain to lookup. Defaults to `1`.
+
+#### Returns
+
+A `string` containing the address of the token contract.
 
 ## License
 

@@ -3,12 +3,12 @@
 const { tokens } = require('@uniswap/default-token-list')
 
 /**
- * @module erc-20-token-list
- */
-
-/**
- * @typedef {object} TokenListItem
- * @property {string} [name]
+ * A token definition as specified by the Uniswap's default token.
+ *
+ * @see https://tokenlists.org/
+ *
+ * @typedef {object} TokenInfo
+ * @property {string} name
  * @property {string} address
  * @property {string} symbol
  * @property {number} decimals
@@ -19,21 +19,21 @@ const { tokens } = require('@uniswap/default-token-list')
 /**
  * List of all tokens known by this module.
  *
- * @type {TokenListItem[]}
+ * @type {TokenInfo[]}
  */
 let allTokens = tokens
 
 /**
- * Register more tokens to the list of known ones.
+ * Registers more tokens to the list of known ones.
  *
- * @param {TokenListItem[]} extraTokens Tokens to register.
+ * @param {TokenInfo[]} extraTokens Tokens to register.
  */
 function registerTokens(extraTokens) {
   allTokens = allTokens.concat(extraTokens)
 }
 
 /**
- * Obtain the address of a token given its symbol.
+ * Returns the address of a token given its symbol.
  *
  * The token will be searched in the list of known tokens. If no exact match is
  * found, a case-insensitive lookup is executed. If no match is found, the

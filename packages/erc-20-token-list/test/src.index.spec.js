@@ -28,7 +28,13 @@ describe('Tokens List', function () {
 
   it('should handle new tokens', function () {
     const newTokens = [
-      { address: '0xNewAddress', chainId: 3, symbol: 'NEW', decimals: 1 }
+      {
+        address: '0xNewAddress',
+        chainId: 3,
+        decimals: 1,
+        name: 'New token',
+        symbol: 'NEW'
+      }
     ]
     erc20TokenList.registerTokens(newTokens)
     erc20TokenList.addressOf('NEW', 3).should.equal(newTokens[0].address)

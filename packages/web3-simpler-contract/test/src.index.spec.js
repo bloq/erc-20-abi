@@ -131,6 +131,7 @@ describe('Simpler Contract', function () {
                   options.should.be.an('object').that.containSubset({ gas })
                   const fakePromiEvent = Promise.resolve(receipt)
                   const emitter = new EventEmitter()
+                  // @ts-ignore 2339
                   fakePromiEvent.on = emitter.on.bind(emitter)
                   fakePromiEvent.then(function (_receipt) {
                     emitter.emit('transactionHash', hash)
@@ -189,6 +190,7 @@ describe('Simpler Contract', function () {
                     .that.containSubset({ gas: gas * gasFactor })
                   const fakePromiEvent = Promise.resolve(receipt)
                   const emitter = new EventEmitter()
+                  // @ts-ignore 2339
                   fakePromiEvent.on = emitter.on.bind(emitter)
                   fakePromiEvent.then(function (_receipt) {
                     emitter.emit('transactionHash', hash)
@@ -235,6 +237,7 @@ describe('Simpler Contract', function () {
               send: function () {
                 const fakePromiEvent = Promise.reject(new Error('Fake revert'))
                 const emitter = new EventEmitter()
+                // @ts-ignore 2339
                 fakePromiEvent.on = emitter.on.bind(emitter)
                 fakePromiEvent.catch(function (err) {
                   emitter.emit('transactionHash', hash)
