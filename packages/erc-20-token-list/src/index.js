@@ -1,6 +1,7 @@
 'use strict'
 
 const { tokens } = require('@uniswap/default-token-list')
+const debug = require('debug')('erc-20-token-list')
 
 /**
  * A token definition as specified by the Uniswap's default token.
@@ -29,6 +30,8 @@ let allTokens = tokens
  * @param {TokenInfo[]} extraTokens Tokens to register.
  */
 function registerTokens(extraTokens) {
+  debug('Registering %s tokens', extraTokens.length)
+
   allTokens = allTokens.concat(extraTokens)
 }
 
@@ -44,11 +47,22 @@ function registerTokens(extraTokens) {
  * @returns {string | undefined} The address of the token.
  */
 function addressOf(symbol, chainId = 1) {
+  debug('Getting address of %s:%d', symbol, chainId)
+
   const chainTokens = allTokens.filter((t) => t.chainId === chainId)
   const token =
     chainTokens.find((t) => t.symbol === symbol) ||
     chainTokens.find((t) => t.symbol.toLowerCase() === symbol.toLowerCase())
-  return token && token.address
+  const address = token && token.address
+
+  debug(
+    address ? '%s:%d address is %s' : '%s:%d address not found',
+    symbol,
+    chainId,
+    address || ''
+  )
+
+  return address
 }
 
 module.exports = {

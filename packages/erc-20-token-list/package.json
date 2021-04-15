@@ -24,6 +24,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@uniswap/default-token-list": "^2.0.0"
+    "@uniswap/default-token-list": "^2.0.0",
+    "debug": "^4.3.1"
   }
 }
