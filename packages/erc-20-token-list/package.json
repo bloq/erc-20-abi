@@ -26,5 +26,15 @@
   "dependencies": {
     "@uniswap/default-token-list": "^2.0.0",
     "debug": "^4.3.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 'use strict'
 
 const abi = require('erc-20-abi')
-const createWeb3SimplerContract = require('web3-simpler-contract')
+const createContract = require('web3-simpler-contract')
 const debug = require('debug')('erc-20-lib')
 
 // Creates a factory to create contracts with the supplied extensions.
@@ -11,8 +11,10 @@ const createWithExtensions = function (extensions) {
     debug('Creating an ERC-20 contract (%s extensions)', extensions.length)
 
     // @ts-ignore TS2345
-    const contract = createWeb3SimplerContract(web3, abi, addresses, options)
-    const extendedMethods = extensions.map((extension) => extension(contract))
+    const contract = createContract(web3, abi, addresses, options)
+    const extendedMethods = extensions.map((extension) =>
+      extension(contract, web3, options)
+    )
 
     // Mix in all the extenstions into the contract.
     return Object.assign(contract, ...extendedMethods)

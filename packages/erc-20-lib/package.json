@@ -27,5 +27,15 @@
     "debug": "^4.3.1",
     "erc-20-abi": "^1.0.0",
     "web3-simpler-contract": "^1.0.0"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }

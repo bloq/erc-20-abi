@@ -44,7 +44,7 @@ contract.getMetadata().then(console.log)
 
 See the `web3-simpler-contract` factory.
 
-### createErc20.with(extension)
+### createErc20.with(extension, web3)
 
 A `function` that will create a new factory with the given extension.
 This method is chainable to allow adding more extensions as needed.
@@ -52,6 +52,8 @@ This method is chainable to allow adding more extensions as needed.
 #### Arguments
 
 - `extension` (`function`): An `extensionFunction` function. See below.
+- `web3` (`object`): The `Web3` instance used to create the contract.
+- `options` (`object`): See the `web3-simpler-contract` options.
 
 #### Returns
 
