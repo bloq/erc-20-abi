@@ -7,7 +7,7 @@ const EventEmitter = require('events')
 
 const createWeb3SimplerContract = require('..')
 
-chai.use(chaiAsPromised).use(chaiSubset).should()
+const should = chai.use(chaiAsPromised).use(chaiSubset).should()
 
 describe('Simpler Contract', function () {
   it('should create a simpler contract', function () {
@@ -32,7 +32,9 @@ describe('Simpler Contract', function () {
 
     const addresses = { [chainId]: address }
     const simplerContract = createWeb3SimplerContract(web3, abi, addresses)
-    simplerContract.should.be.an('object').that.has.keys(['aCallMethod'])
+    simplerContract.should.be
+      .an('object')
+      .that.has.keys(['aCallMethod', 'getAddress'])
     simplerContract.should.have.property('aCallMethod').that.is.a('function')
   })
 
@@ -258,4 +260,47 @@ describe('Simpler Contract', function () {
   })
 
   it('should send a transaction with ether')
+
+  it('should get the contract address', function () {
+    const chainId = 0
+    const address = '0x00'
+    const abi = []
+    const web3 = {
+      eth: {
+        Contract: function Contract(_abi, _address) {
+          this.options = { address: _address }
+        },
+        getChainId: () => Promise.resolve(chainId)
+      }
+    }
+
+    const addresses = { [chainId]: address }
+    const simplerContract = createWeb3SimplerContract(web3, abi, addresses)
+    return simplerContract.getAddress(function (result) {
+      result.should.equal(address)
+    })
+  })
+
+  it('should fail for unknown method types', function () {
+    const chainId = 0
+    const address = '0x00'
+    const abi = [
+      {
+        inputs: [],
+        name: 'throwError',
+        stateMutability: 'notSupported',
+        type: 'function'
+      }
+    ]
+    const web3 = {
+      eth: {
+        getChainId: () => Promise.resolve(chainId)
+      }
+    }
+
+    const addresses = { [chainId]: address }
+    should.throw(function () {
+      createWeb3SimplerContract(web3, abi, addresses)
+    }, 'Unsupported mutability type')
+  })
 })

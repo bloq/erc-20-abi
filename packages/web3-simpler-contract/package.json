@@ -25,5 +25,15 @@
   },
   "dependencies": {
     "debug": "^4.3.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }

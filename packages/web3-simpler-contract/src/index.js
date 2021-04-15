@@ -78,7 +78,7 @@ function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
             hash = _hash
           })
           promiEvent.on('receipt', function ({ status }) {
-            debug('Sending tx %s succeded with status %s', hash, status)
+            debug('Sending tx %s completed with status %s', hash, status)
           })
           promiEvent.on('error', function (err) {
             debug('Sending tx %s failed: %s', hash, err.message)
@@ -89,6 +89,10 @@ function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
       })
     }
 
+  // Helper to get the address of the contract.
+  const getAddress = () =>
+    contractPromise.then((contract) => contract.options.address)
+
   // Create all the contract simpler methods based on the ABI.
   const methods = abi
     .filter((desc) => desc.type === 'function' && desc.name)
@@ -98,12 +102,15 @@ function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
         case 'view':
           return { name, fn: createCall(desc) }
         case 'nonpayable':
+        case 'payable':
           return { name, fn: createSend(desc) }
         default:
           throw new Error(`Unsupported mutability type: ${stateMutability}`)
       }
     })
-    .reduce((all, { name, fn }) => Object.assign(all, { [name]: fn }), {})
+    .reduce((all, { name, fn }) => Object.assign(all, { [name]: fn }), {
+      getAddress
+    })
 
   return methods
 }
