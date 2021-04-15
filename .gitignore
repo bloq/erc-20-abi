@@ -1,5 +1,6 @@
 .DS_Store
 .eslintcache
 .nyc_output
+coverage
 node_modules
 packages/*/out

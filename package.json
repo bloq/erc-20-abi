@@ -43,6 +43,7 @@
       "prettier"
     ],
     "ignorePatterns": [
+      "packages/*/coverage",
       "packages/*/out"
     ],
     "overrides": [
