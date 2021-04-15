@@ -1,0 +1,31 @@
+{
+  "name": "erc-20-lib",
+  "version": "1.0.0",
+  "description": "A library to simplify using [ERC-20]() token contracts",
+  "keywords": [
+    "contract",
+    "erc-20",
+    "simple",
+    "web3"
+  ],
+  "homepage": "https://github.com/bloq/erc-20-monorepo#readme",
+  "bugs": {
+    "url": "https://github.com/bloq/erc-20-monorepo/issues"
+  },
+  "license": "MIT",
+  "author": "Gabriel Montes <gabriel@bloq.com>",
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "scripts": {
+    "coverage": "nyc npm test",
+    "deps:check": "dependency-check --no-dev .",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "debug": "^4.3.1",
+    "erc-20-abi": "^1.0.0",
+    "web3-simpler-contract": "^1.0.0"
+  }
+}
