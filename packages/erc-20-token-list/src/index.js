@@ -36,6 +36,26 @@ function registerTokens(extraTokens) {
 }
 
 /**
+ * Returns the information about the token given its address.
+ *
+ * @param {string} address The address of the token contract.
+ * @param {number} [chainId] The chain where the token exists.
+ * @returns {object | undefined} The information about the token.
+ */
+function get(address, chainId = 1) {
+  debug('Getting %s:%s token info', address, chainId)
+
+  const chainTokens = allTokens.filter((t) => t.chainId === chainId)
+  const token = chainTokens.find(
+    (t) => t.address.toLowerCase() === address.toLowerCase()
+  )
+
+  debug('Token at %s:%s %s', token ? `is ${token.symbol}` : 'not found')
+
+  return token
+}
+
+/**
  * Returns the address of a token given its symbol.
  *
  * The token will be searched in the list of known tokens. If no exact match is
@@ -67,5 +87,6 @@ function addressOf(symbol, chainId = 1) {
 
 module.exports = {
   registerTokens,
-  addressOf
+  addressOf,
+  get
 }

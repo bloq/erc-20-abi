@@ -65,6 +65,20 @@ If no exact match is found, a case-insensitive lookup is executed.
 
 A `string` containing the address of the token contract.
 
+### get(address, chainId?)
+
+Returns the information about the token given its address.
+
+#### Arguments
+
+- `address` (`string`): The address of the token contract.
+- `chainId` (`numnber`): The chain to lookup. Defaults to `1`.
+
+#### Returns
+
+An `object` containing the information of the token contract or `undefined` if no token definition is found.
+The format is a token item from [Uniswap's default token list](https://github.com/Uniswap/default-token-list).
+
 ## License
 
 MIT

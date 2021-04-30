@@ -39,4 +39,13 @@ describe('Tokens List', function () {
     erc20TokenList.registerTokens(newTokens)
     erc20TokenList.addressOf('NEW', 3).should.equal(newTokens[0].address)
   })
+
+  it('should get WETH information', function () {
+    const wethAddress = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+    erc20TokenList.get(wethAddress).should.have.property('symbol', 'WETH')
+  })
+
+  it('should return undefined for unknown addresses', function () {
+    should.not.exist(erc20TokenList.get('0xUNKNOWN'))
+  })
 })
