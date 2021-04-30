@@ -60,6 +60,7 @@
       "jsdoc"
     ],
     "rules": {
+      "consistent-return": "warn",
       "jsdoc/require-property-description": "off",
       "no-shadow": "warn",
       "no-use-before-define": "error"
