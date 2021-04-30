@@ -11,7 +11,7 @@ const should = chai.use(chaiAsPromised).use(chaiSubset).should()
 
 describe('Simpler Contract', function () {
   it('should create a simpler contract', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -34,12 +34,12 @@ describe('Simpler Contract', function () {
     const simplerContract = createWeb3SimplerContract(web3, abi, addresses)
     simplerContract.should.be
       .an('object')
-      .that.has.keys(['aCallMethod', 'getAddress'])
+      .that.has.keys(['aCallMethod', 'getAddress', 'getChainId'])
     simplerContract.should.have.property('aCallMethod').that.is.a('function')
   })
 
   it('should call a method', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -78,7 +78,7 @@ describe('Simpler Contract', function () {
   })
 
   it('should reject a failed call', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -107,7 +107,7 @@ describe('Simpler Contract', function () {
   })
 
   it('should send a transaction', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -133,7 +133,7 @@ describe('Simpler Contract', function () {
                   options.should.be.an('object').that.containSubset({ gas })
                   const fakePromiEvent = Promise.resolve(receipt)
                   const emitter = new EventEmitter()
-                  // @ts-ignore 2339
+                  // @ts-ignore ts(2339)
                   fakePromiEvent.on = emitter.on.bind(emitter)
                   fakePromiEvent.then(function (_receipt) {
                     emitter.emit('transactionHash', hash)
@@ -159,7 +159,7 @@ describe('Simpler Contract', function () {
   })
 
   it('should estimate the gas and send a transaction', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -192,7 +192,7 @@ describe('Simpler Contract', function () {
                     .that.containSubset({ gas: gas * gasFactor })
                   const fakePromiEvent = Promise.resolve(receipt)
                   const emitter = new EventEmitter()
-                  // @ts-ignore 2339
+                  // @ts-ignore ts(2339)
                   fakePromiEvent.on = emitter.on.bind(emitter)
                   fakePromiEvent.then(function (_receipt) {
                     emitter.emit('transactionHash', hash)
@@ -219,7 +219,7 @@ describe('Simpler Contract', function () {
   })
 
   it('should reject a failed sent', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {
@@ -239,7 +239,7 @@ describe('Simpler Contract', function () {
               send: function () {
                 const fakePromiEvent = Promise.reject(new Error('Fake revert'))
                 const emitter = new EventEmitter()
-                // @ts-ignore 2339
+                // @ts-ignore ts(2339)
                 fakePromiEvent.on = emitter.on.bind(emitter)
                 fakePromiEvent.catch(function (err) {
                   emitter.emit('transactionHash', hash)
@@ -262,7 +262,7 @@ describe('Simpler Contract', function () {
   it('should send a transaction with ether')
 
   it('should get the contract address', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = []
     const web3 = {
@@ -281,8 +281,28 @@ describe('Simpler Contract', function () {
     })
   })
 
+  it('should get the chain id', function () {
+    const chainId = 42
+    const address = '0x00'
+    const abi = []
+    const web3 = {
+      eth: {
+        Contract: function Contract(_abi, _address) {
+          this.options = { address: _address }
+        },
+        getChainId: () => Promise.resolve(chainId)
+      }
+    }
+
+    const addresses = { [chainId]: address }
+    const simplerContract = createWeb3SimplerContract(web3, abi, addresses)
+    return simplerContract.getChainId(function (result) {
+      result.should.equal(chainId)
+    })
+  })
+
   it('should fail for unknown method types', function () {
-    const chainId = 0
+    const chainId = 42
     const address = '0x00'
     const abi = [
       {

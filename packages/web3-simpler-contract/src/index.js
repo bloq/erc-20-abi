@@ -3,8 +3,7 @@
 const debug = require('debug')('web3-simpler-contract')
 
 /**
- * Creates an object with a simplified interface to interact with Web3.js
- * contracts.
+ * Creates an object with a simplified interface to interact with a contract.
  *
  * @param {object} web3 A Web3 instance.
  * @param {object[]} abi The ABI of the contract.
@@ -15,12 +14,13 @@ const debug = require('debug')('web3-simpler-contract')
 function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
   debug('Creating simpler contract')
 
+  const chainIdPromise = web3.eth.getChainId()
+
+  const contractAddressPromise = chainIdPromise.then((id) => addresses[id])
+
   // Get the contract address based on the chain ID and create the contract.
-  const contractPromise = web3.eth.getChainId().then(function (id) {
-    const address = addresses[id]
-
+  const contractPromise = contractAddressPromise.then(function (address) {
     debug('Contract address is %s', address)
-
     return new web3.eth.Contract(abi, address, options)
   })
 
@@ -89,11 +89,7 @@ function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
       })
     }
 
-  // Helper to get the address of the contract.
-  const getAddress = () =>
-    contractPromise.then((contract) => contract.options.address)
-
-  // Create all the contract simpler methods based on the ABI.
+  // Create all the contract methods based on the ABI.
   const methods = abi
     .filter((desc) => desc.type === 'function' && desc.name)
     .map(function (desc) {
@@ -108,8 +104,10 @@ function createWeb3SimplerContract(web3, abi, addresses, options = {}) {
           throw new Error(`Unsupported mutability type: ${stateMutability}`)
       }
     })
+    // Convert the array of methods to an object and add some helpers
     .reduce((all, { name, fn }) => Object.assign(all, { [name]: fn }), {
-      getAddress
+      getAddress: () => contractAddressPromise,
+      getChainId: () => chainIdPromise
     })
 
   return methods
