@@ -14,9 +14,9 @@
     "token",
     "web3"
   ],
-  "homepage": "https://github.com/bloq/erc-20-lib#readme",
+  "homepage": "https://github.com/bloq/erc-20-abi#readme",
   "bugs": {
-    "url": "https://github.com/bloq/erc-20-lib/issues"
+    "url": "https://github.com/bloq/erc-20-abi/issues"
   },
   "license": "MIT",
   "author": "Gabriel Montes <gabriel@bloq.com>",
@@ -24,7 +24,7 @@
     "src/abi.json"
   ],
   "main": "src/abi.json",
-  "repository": "bloq/erc-20-lib",
+  "repository": "bloq/erc-20-abi",
   "scripts": {
     "lint": "jsonlint src/abi.json -cisq",
     "prepublishOnly": "tag-matches"
